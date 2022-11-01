@@ -2,7 +2,7 @@
   "name": "type-chef-di",
   "version": "0.0.1",
   "description": "dependency injection container.",
-  "main": "build/index.js",
+  "main": "index.js",
   "types": "build",
   "keywords": [
     "dependency-injection",
