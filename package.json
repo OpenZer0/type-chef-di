@@ -13,7 +13,7 @@
     "build": "tsc -p .",
     "start": "ts-node-dev lib/app.ts",
     "test": "jest --silent --verbose --coverage",
-    "local-publish": "rm -rf ./build && npm run generate-index && npm version patch --force && npm run build && npm publish --registry http://localhost:4873/",
+    "local-publish": "rm -rf ./build && npm run generate-index && npm version patch --force && npm run build  && cp *.json ./build && cp *.md && npm publish ./build --registry http://localhost:4873/",
     "generate-index": "cti clean ./lib && cti create ./lib"
   },
   "author": "Maurer Krisztian",
