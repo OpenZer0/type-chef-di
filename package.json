@@ -1,6 +1,6 @@
 {
   "name": "type-chef-di",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "dependency injection container.",
   "main": "index.js",
   "types": "build",
@@ -13,7 +13,8 @@
     "build": "tsc -p .",
     "start": "ts-node-dev lib/app.ts",
     "test": "jest --silent --verbose --coverage",
-    "local-publish": "rm -rf ./build && npm run generate-index && npm version patch --force && npm run build  && cp *.json ./build && cp *.md && npm publish ./build --registry http://localhost:4873/",
+    "local-publish": "rm -rf ./build && npm run generate-index && npm run build  && cp *.json ./build && cp *.md && npm publish ./build --registry http://localhost:4873/",
+    "publish": "rm -rf ./build && npm run generate-index && npm run build  && cp *.json ./build && cp *.md && npm publish ./build",
     "generate-index": "cti clean ./lib && cti create ./lib"
   },
   "author": "Maurer Krisztian",
@@ -23,10 +24,11 @@
     "uuid": "^8.3.2"
   },
   "devDependencies": {
-    "@types/uuid": "^8.3.0",
     "@types/jest": "^26.0.15",
     "@types/node": "^14.0.23",
     "@types/reflect-metadata": "^0.1.0",
+    "@types/uuid": "^8.3.0",
+    "create-ts-index": "^1.14.0",
     "jest": "^26.6.3",
     "ts-jest": "^26.4.4",
     "ts-node": "^8.10.2",
