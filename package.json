@@ -14,7 +14,7 @@
     "start": "ts-node-dev lib/app.ts",
     "test": "jest --silent --verbose --coverage",
     "local-publish": "rm -rf ./build && npm run generate-index && npm run build  && cp *.json ./build && cp *.md && npm publish ./build --registry http://localhost:4873/",
-    "publish": "rm -rf ./build && npm run generate-index && npm run build  && cp *.json ./build && cp *.md && npm publish ./build",
+    "publish": "rm -rf ./build && npm run generate-index && npm run build  && cp *.json ./build && cp *.md ./build && npm publish ./build",
     "generate-index": "cti clean ./lib && cti create ./lib"
   },
   "author": "Maurer Krisztian",
