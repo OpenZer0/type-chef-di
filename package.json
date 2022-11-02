@@ -1,6 +1,6 @@
 {
   "name": "type-chef-di",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "dependency injection container.",
   "main": "index.js",
   "types": "build",
@@ -13,7 +13,7 @@
     "build": "tsc -p .",
     "start": "ts-node-dev lib/app.ts",
     "test": "jest --silent --verbose --coverage",
-    "local-publish": "rm -rf ./build && npm run generate-index && npm run build  && cp *.json ./build && cp *.md && npm publish ./build --registry http://localhost:4873/",
+    "local-publish": "rm -rf ./build && npm run generate-index && npm run build  && cp *.json ./build && cp *.md ./build && npm publish ./build --registry http://localhost:4873/",
     "publish": "rm -rf ./build && npm run generate-index && npm run build  && cp *.json ./build && cp *.md ./build && npm publish ./build",
     "generate-index": "cti clean ./lib && cti create ./lib"
   },
