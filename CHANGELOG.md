@@ -1,3 +1,13 @@
+## [0.1.3](https://github.com/OpenZer0/type-chef-di/compare/v0.1.2...v0.1.3) (2022-11-03)
+
+
+### Bug Fixes
+
+* add package lock ([11889e4](https://github.com/OpenZer0/type-chef-di/commit/11889e4bbb92a6ef8051cdea2d4cf0b56cdee257))
+* workflow npm ci ([a1d3c41](https://github.com/OpenZer0/type-chef-di/commit/a1d3c41f9a8e98591cc6ec4bf6bec5927e938c5c))
+
+
+
 ## [0.1.2](https://github.com/OpenZer0/type-chef-di/compare/v0.1.0...v0.1.2) (2022-11-02)
 
 
