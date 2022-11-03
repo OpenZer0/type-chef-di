@@ -1,3 +1,12 @@
+## [0.1.4](https://github.com/OpenZer0/type-chef-di/compare/v0.1.3...v0.1.4) (2022-11-03)
+
+
+### Bug Fixes
+
+* publish action ([a5dcd0f](https://github.com/OpenZer0/type-chef-di/commit/a5dcd0f852f835d204f78baef0c44c3a933415dd))
+
+
+
 ## [0.1.3](https://github.com/OpenZer0/type-chef-di/compare/v0.1.2...v0.1.3) (2022-11-03)
 
 

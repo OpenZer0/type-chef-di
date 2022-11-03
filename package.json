@@ -1,6 +1,6 @@
 {
   "name": "type-chef-di",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "description": "dependency injection container.",
   "main": "index.js",
   "types": "build",
