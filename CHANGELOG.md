@@ -1,3 +1,12 @@
+## [0.1.5](https://github.com/OpenZer0/type-chef-di/compare/v0.1.4...v0.1.5) (2022-11-03)
+
+
+### Bug Fixes
+
+* release workflow trigger ([4d2db40](https://github.com/OpenZer0/type-chef-di/commit/4d2db400f9d9ac1b8152855b10ea7e7fdc8a723f))
+
+
+
 ## [0.1.4](https://github.com/OpenZer0/type-chef-di/compare/v0.1.3...v0.1.4) (2022-11-03)
 
 
