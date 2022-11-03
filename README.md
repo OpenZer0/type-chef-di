@@ -11,4 +11,20 @@
 [![Technical Debt](https://sonarcloud.io/api/project_badges/measure?project=OpenZer0_type-chef-di&metric=sqale_index)](https://sonarcloud.io/summary/new_code?id=OpenZer0_type-chef-di)
 [![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=OpenZer0_type-chef-di&metric=vulnerabilities)](https://sonarcloud.io/summary/new_code?id=OpenZer0_type-chef-di)
 
-Documentation: https://zer0-2.gitbook.io/type-chef-di/fundamentals/injection/type-injection
+### Documentation: https://zer0-2.gitbook.io/type-chef-di
+
+### Setup:
+
+tsconfig.json:
+```json
+{
+  "experimentalDecorators": true,
+  "emitDecoratorMetadata": true,
+  "target": "es6"
+}
+```
+Install the npm package:
+
+```sh
+npm install type-chef-di
+```
