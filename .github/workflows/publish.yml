@@ -1,8 +1,8 @@
 name: Publish Package to npmjs
 on:
-  workflow_dispatch:
   release:
     types: [created]
+  workflow_dispatch:
 jobs:
   publish:
     runs-on: ubuntu-latest
@@ -14,6 +14,6 @@ jobs:
           node-version: '16.x'
           registry-url: 'https://registry.npmjs.org'
       - run: npm ci
-      - run: npm run publish
+      - run: npm run npmjs-publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
