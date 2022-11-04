@@ -1,6 +1,7 @@
 import { IInstantiatable } from "./interfaces/IInstantiatable";
 import { IContainerOption } from "./Container";
 import { Keys } from "./Keys";
+import { Type } from "./interfaces/IType";
 
 export class DefinitionRepository {
     definitions = new Map<string, IInstantiatable>();
@@ -20,7 +21,7 @@ export class DefinitionRepository {
         return this.definitions.get(key) as IInstantiatable;
     }
 
-    getDefinitionByType(constructor: any): IInstantiatable | symbol {
+    getDefinitionByType(constructor: Type): IInstantiatable | symbol {
         for (const [key, value] of this.definitions.entries()) {
             if (value.definition.content === constructor) {
                 return value;

@@ -11,6 +11,7 @@ import { Utils } from "./Utils";
 import { DefinitionRepository } from "./DefinitionRepository";
 import { Keys } from "./Keys";
 import { v4 as uuidv4 } from "uuid";
+import { Type } from "./interfaces/IType";
 
 export type singletonsType = Map<string, any>;
 
@@ -34,19 +35,19 @@ export class Container implements IContainer, IResolver {
     }) {
     }
 
-    public register(key: string, ctr: any): InstantiationModeCO {
-        const decoratorTags = this.getTagsMeta(ctr);
-        this.setDefinition(key, this.getDefaultInstantiationDef(key, ctr, decoratorTags));
+    public register(key: string, value: any): InstantiationModeCO {
+        const decoratorTags = this.getTagsMeta(value);
+        this.setDefinition(key, this.getDefaultInstantiationDef(key, value, decoratorTags));
         return new InstantiationModeCO(this, key);
     }
 
-    public registerTypes(constructors: any[]): void {
+    public registerTypes(constructors: Type[]): void {
         for (const constructor of constructors) {
             this.register(uuidv4(), constructor);
         }
     }
 
-    public async resolveByType<T>(constructor: any): Promise<T> {
+    public async resolveByType<T>(constructor: Type): Promise<T> {
         const def = this.definitionsRepository.getDefinitionByType(constructor);
 
         if (def === Keys.AUTO_CREATE_DEPENDENCY && this.options.enableAutoCreate) {
@@ -76,7 +77,7 @@ export class Container implements IContainer, IResolver {
         }
     }
 
-    getTagsMeta(ctr: any) {
+    getTagsMeta(ctr: Type) {
         if (!Utils.isClass(ctr)) return;
         const meta = Reflect.getMetadata(Keys.ADD_TAGS_KEY, ctr.constructor) || {};
         return meta[Keys.ADD_TAGS_KEY];
