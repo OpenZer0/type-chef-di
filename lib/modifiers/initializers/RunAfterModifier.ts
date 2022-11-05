@@ -5,7 +5,7 @@ import { IInitializer } from "./IInitializer";
 
 export class RunAfterModifier implements IInitializer {
 
-    constructor(private readonly resolver: IResolver) {
+    constructor(readonly resolver: IResolver) {
     }
 
     async run(instance: any, definition: any): Promise<any> {

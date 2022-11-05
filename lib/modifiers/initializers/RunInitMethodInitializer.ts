@@ -6,7 +6,7 @@ import { IInitializer } from "./IInitializer";
 export class RunInitMethodInitializer implements IInitializer {
     argResolver: ArgResolver = new ArgResolver(this.resolver);
 
-    constructor(private readonly resolver: IResolver) {
+    constructor(readonly resolver: IResolver) {
     }
 
     async run(resolvedInstance: any, definition: any): Promise<any> {

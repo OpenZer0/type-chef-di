@@ -3,7 +3,7 @@ import { Injectable } from "../../lib/decorators/Injectable";
 
 describe("Inject Without Keys (registerTypes)", () => {
     test("[1.] simple inject without keys and registerTypes", async () => {
-        const container = new Container({enableAutoCreate: true});
+        const container = new Container({enableAutoCreate: true, initializers: []});
         await container.registerTypes([
             Something,
             Client,
@@ -16,7 +16,7 @@ describe("Inject Without Keys (registerTypes)", () => {
     });
 
     test(" [2.] inject by types && default params", async () => {
-        const container = new Container({enableAutoCreate: true});
+        const container = new Container({enableAutoCreate: true, initializers: []});
         await container.registerTypes([
             Something,
             Client2,

@@ -4,14 +4,14 @@ import { Inject } from "../../lib/decorators/Inject";
 
 describe("Inject Without Keys && without registerTypes (automatic injection and registration) enableAutoCreate", () => {
     test("[1.] enableAutoCreate", async () => {
-        const container = new Container({enableAutoCreate: true});
+        const container = new Container({enableAutoCreate: true, initializers: []});
 
         const service = await container.resolveByType<Service>(Service);
         expect(service.check()).toBe("client says: hello something and something else str");
     });
 
     test(" [2.] enableAutoCreate && default params", async () => {
-        const container = new Container({enableAutoCreate: true});
+        const container = new Container({enableAutoCreate: true, initializers: []});
 
         const service2 = await container.resolveByType<Service2>(Service2);
         expect(service2.test()[0]).toBe("default str test");
@@ -19,7 +19,7 @@ describe("Inject Without Keys && without registerTypes (automatic injection and 
     });
 
     test("Inject by type without registerTypes && default params && enableAutoCreate false", async () => {
-        const container = new Container({enableAutoCreate: false});
+        const container = new Container({enableAutoCreate: false, initializers: []});
 
         try {
             await container.resolveByType<Service2>(Service2);
@@ -32,7 +32,7 @@ describe("Inject Without Keys && without registerTypes (automatic injection and 
     });
 
     test("@Inject(key) with - Inject by type without registerTypes && default params && enableAutoCreate", async () => {
-        const container = new Container({enableAutoCreate: true});
+        const container = new Container({enableAutoCreate: true, initializers: []});
 
         container.register("Client3", Client3);
         const service3 = await container.resolveByType<Service3>(Service3);

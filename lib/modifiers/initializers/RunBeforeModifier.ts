@@ -4,7 +4,7 @@ import { IResolver } from "../../interfaces/IResolver";
 import { IInitializer } from "./IInitializer";
 
 export class RunBeforeModifier implements IInitializer {
-    constructor(private readonly resolver: IResolver) {
+    constructor(readonly resolver: IResolver) {
 
     }
 

@@ -4,9 +4,9 @@ import { Container } from "../lib/Container";
 describe("Context test", () => {
 
     test("without context and one as singleton", async () => {
-        const container = new Container({enableAutoCreate: true})
+        const container = new Container({enableAutoCreate: true, initializers: []});
 
-        const c = await container.resolveByType<C>(C)
+        const c = await container.resolveByType<C>(C);
         expect(c.d1.T).toBe("hello");
 
     });
@@ -37,10 +37,10 @@ class A {
 
 @Injectable
 class B extends A {
-    constB = "bbbb"
+    constB = "bbbb";
 }
 
 @Injectable
 class C extends B {
-    constC = "CCCC"
+    constC = "CCCC";
 }

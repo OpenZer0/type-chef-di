@@ -7,6 +7,8 @@ import { InjectPropertiesInitializer } from "./initializers/InjectPropertiesInit
 import { RunBeforeModifier } from "./initializers/RunBeforeModifier";
 import { RunAfterModifier } from "./initializers/RunAfterModifier";
 import { MethodWrapperModifier } from "./initializers/MethodWrapperModifier";
+import { IBaseDefinition } from "../definitions/definitionInterfaces/IBaseDefinition";
+import { Type } from "../interfaces/IType";
 
 export class Initializers {
     initializers: IInitializer[] = [
@@ -23,7 +25,13 @@ export class Initializers {
         if (initializers) this.initializers = initializers;
     }
 
-    async runInitializers(instance: any, definition: any) {
+    addInitializers(InitializerTypes: Type<IInitializer>[]) {
+        for (const InitializerType of InitializerTypes) {
+            this.initializers.push(new InitializerType(this.resolver));
+        }
+    }
+
+    async runInitializers(instance: any, definition: IBaseDefinition) {
         if (!instance || !Utils.isClass(definition.content)) return instance;
 
         for (const initializer of this.initializers) {

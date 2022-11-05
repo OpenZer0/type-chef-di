@@ -12,11 +12,14 @@ import { DefinitionRepository } from "./DefinitionRepository";
 import { Keys } from "./Keys";
 import { v4 as uuidv4 } from "uuid";
 import { Type } from "./interfaces/IType";
+import { IInitializer } from "./modifiers/initializers/IInitializer";
+import { IBaseDefinition } from "./definitions/definitionInterfaces/IBaseDefinition";
 
 export type singletonsType = Map<string, any>;
 
 export interface IContainerOption {
     enableAutoCreate: boolean; // if dependency not exist in the container, creat it and register
+    initializers: Type<IInitializer>[];
 }
 
 
@@ -31,8 +34,10 @@ export class Container implements IContainer, IResolver {
     protected DEFAULT_INSTANTIATION: instantiationMode = "singleton";
 
     constructor(public readonly options: IContainerOption = {
-        enableAutoCreate: false
+        enableAutoCreate: false,
+        initializers: []
     }) {
+        this.initializers.addInitializers(options.initializers);
     }
 
     /**
@@ -66,7 +71,9 @@ export class Container implements IContainer, IResolver {
             this.registerTypes([constructor]);
             return this.resolveByType(constructor);
         } else if (def) {
-            return (this.definitionsRepository.getDefinitionByType(constructor) as IInstantiatable).instantiate();
+            const instantiatable = (this.definitionsRepository.getDefinitionByType(constructor) as IInstantiatable);
+            const instance = instantiatable.instantiate();
+            return this.applyModificationToInstance(instance, instantiatable.definition);
         } else {
             throw new Error(`cannot resolve ${constructor}`);
         }
@@ -93,7 +100,7 @@ export class Container implements IContainer, IResolver {
         }
     }
 
-    async applyModificationToInstance(instance: any, definition: any) {
+    async applyModificationToInstance(instance: any, definition: IBaseDefinition) {
         instance = await this.initializers.runInitializers(instance, definition);
         return instance;
     }
