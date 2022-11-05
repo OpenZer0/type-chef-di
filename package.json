@@ -18,7 +18,7 @@
     "generate-index": "cti clean ./lib && cti create ./lib"
   },
   "author": "Maurer Krisztian",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "reflect-metadata": "^0.1.13",
     "uuid": "^8.3.2"
