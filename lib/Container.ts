@@ -35,18 +35,30 @@ export class Container implements IContainer, IResolver {
     }) {
     }
 
+    /**
+     * Key-Value registration. You can inject the registered keys with @Inject(key) decorator
+     */
     public register(key: string, value: any): InstantiationModeCO {
         const decoratorTags = this.getTagsMeta(value);
         this.setDefinition(key, this.getDefaultInstantiationDef(key, value, decoratorTags));
         return new InstantiationModeCO(this, key);
     }
 
+    /**
+     * Types registration to the container with a random key
+     * (type injection don't need keys but if {autoCreate: false} you need to register everything)
+     * @param constructors
+     */
     public registerTypes(constructors: Type[]): void {
         for (const constructor of constructors) {
             this.register(uuidv4(), constructor);
         }
     }
 
+    /**
+     * Resolve type
+     * @param constructor resolvable ctr
+     */
     public async resolveByType<T>(constructor: Type): Promise<T> {
         const def = this.definitionsRepository.getDefinitionByType(constructor);
 
@@ -60,6 +72,10 @@ export class Container implements IContainer, IResolver {
         }
     }
 
+    /**
+     * Resolve key
+     * @param key registered key (by register(key: string, value: any))
+     */
     public async resolve<T>(key: string): Promise<T> {
         const instantiatable: IInstantiatable = this.definitionsRepository.getDefinition(key);
 
@@ -75,16 +91,6 @@ export class Container implements IContainer, IResolver {
                 throw new Error(`Cannot resolve: ${key} because instantiationMode is:  ${instantiatable.definition.instantiationMode}`);
             }
         }
-    }
-
-    getTagsMeta(ctr: Type) {
-        if (!Utils.isClass(ctr)) return;
-        const meta = Reflect.getMetadata(Keys.ADD_TAGS_KEY, ctr.constructor) || {};
-        return meta[Keys.ADD_TAGS_KEY];
-    }
-
-    hasKeyInDefinition(key: string): boolean {
-        return this.definitionsRepository.definitions.has(key);
     }
 
     async applyModificationToInstance(instance: any, definition: any) {
@@ -118,15 +124,36 @@ export class Container implements IContainer, IResolver {
         this.interceptors.push(interceptor);
     }
 
+
+    /**
+     * resolve test for all keys.
+     */
+    async containerTest() {
+        for (const key of this.definitionsRepository.definitions.keys()) {
+            try {
+                await this.resolve<any>(key);
+            } catch (err) {
+                throw new Error(`Not proper registration. details: ${err}`);
+            }
+        }
+    }
+
+    /**
+     * run interceptors. Run this after all key was registered.
+     */
     async done(): Promise<any> {
         await this.containerTest();
         this.runInterceptors();
     }
 
-    runInterceptors() {
+    private runInterceptors() {
         this.interceptors.forEach((interceptor: IInterceptor) => {
             interceptor.intercept(this);
         });
+    }
+
+    hasKeyInDefinition(key: string): boolean {
+        return this.definitionsRepository.definitions.has(key);
     }
 
     private setDefinition(key: string, definition: IInstantiatable) {
@@ -167,17 +194,9 @@ export class Container implements IContainer, IResolver {
         return this.singletons.get(instantiatable.definition.key);
     }
 
-
-    /*
-    * resolve test for all keys. (run this after all key was registered)
-    * */
-    async containerTest() {
-        for (const key of this.definitionsRepository.definitions.keys()) {
-            try {
-                await this.resolve<any>(key);
-            } catch (err) {
-                throw new Error(`Not proper registration. details: ${err}`);
-            }
-        }
+    private getTagsMeta(ctr: Type) {
+        if (!Utils.isClass(ctr)) return;
+        const meta = Reflect.getMetadata(Keys.ADD_TAGS_KEY, ctr.constructor) || {};
+        return meta[Keys.ADD_TAGS_KEY];
     }
 }

@@ -1,4 +1,4 @@
-### type-chef-di
+# type-chef-di [![npm version](https://badge.fury.io/js/type-chef-di.svg)](https://badge.fury.io/js/type-chef-di) ![NPM Downloads](https://img.shields.io/npm/dw/type-chef-di)
 [![SonarCloud](https://sonarcloud.io/images/project_badges/sonarcloud-black.svg)](https://sonarcloud.io/summary/new_code?id=OpenZer0_type-chef-di)
 
 [![Bugs](https://sonarcloud.io/api/project_badges/measure?project=OpenZer0_type-chef-di&metric=bugs)](https://sonarcloud.io/summary/new_code?id=OpenZer0_type-chef-di)
