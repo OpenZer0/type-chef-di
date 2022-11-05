@@ -32,7 +32,7 @@ describe("Inject Without Keys (registerTypes)", () => {
 
 // [1.] classes
 
-@Injectable
+@Injectable()
 class Something {
 
     public getValue() {
@@ -40,7 +40,7 @@ class Something {
     }
 }
 
-@Injectable
+@Injectable()
 class SomethingElse {
 
     public getValue() {
@@ -49,7 +49,7 @@ class SomethingElse {
 }
 
 
-@Injectable
+@Injectable()
 class Client {
     constructor(private readonly something: Something, private readonly somethingElse: SomethingElse) {
     }
@@ -59,7 +59,7 @@ class Client {
     }
 }
 
-@Injectable
+@Injectable()
 class Service {
     constructor(private readonly client: Client) {
     }
@@ -71,7 +71,7 @@ class Service {
 
 // [2.] classes
 
-@Injectable
+@Injectable()
 class Client2 {
     constructor(private readonly something: Something, private readonly defaultStr = "default str test") {
     }
@@ -85,7 +85,7 @@ class Client2 {
     }
 }
 
-@Injectable
+@Injectable()
 class Service2 {
     constructor(private readonly client: Client2) {
     }

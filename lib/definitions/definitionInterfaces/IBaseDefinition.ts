@@ -1,7 +1,7 @@
-import { instantiationMode } from "../../interfaces/IInstantiatable";
+import { IInstantiationMode } from "../../interfaces/IInstantiatable";
 
 export interface IBaseDefinition {
-    instantiationMode: instantiationMode;
+    instantiationMode: IInstantiationMode;
     key: string;
     content: any;
 }

@@ -1,17 +1,18 @@
 import { Container } from "../../lib/Container";
 import { Injectable } from "../../lib/decorators/Injectable";
 import { Inject } from "../../lib/decorators/Inject";
+import { IInstantiatable } from "../../lib/interfaces/IInstantiatable";
 
 describe("Inject Without Keys && without registerTypes (automatic injection and registration) enableAutoCreate", () => {
     test("[1.] enableAutoCreate", async () => {
-        const container = new Container({enableAutoCreate: true, initializers: []});
+        const container = new Container({enableAutoCreate: true});
 
         const service = await container.resolveByType<Service>(Service);
         expect(service.check()).toBe("client says: hello something and something else str");
     });
 
     test(" [2.] enableAutoCreate && default params", async () => {
-        const container = new Container({enableAutoCreate: true, initializers: []});
+        const container = new Container({enableAutoCreate: true});
 
         const service2 = await container.resolveByType<Service2>(Service2);
         expect(service2.test()[0]).toBe("default str test");
@@ -39,11 +40,31 @@ describe("Inject Without Keys && without registerTypes (automatic injection and 
         expect(service3.test()[0]).toBe("default str test, injected");
         expect(service3.test()[1]).toBe("hello something");
     });
+
+
+    test("@Injectable prototype", async () => {
+
+        @Injectable({instantiation: "prototype"})
+        class PrototypeTest {
+        }
+
+        @Injectable({instantiation: "singleton"})
+        class SingletonTest {
+        }
+
+        const container = new Container({enableAutoCreate: true, initializers: []});
+        container.registerTypes([PrototypeTest, SingletonTest]);
+
+        const prototypeDef = container.definitionsRepository.getDefinitionByType(PrototypeTest) as IInstantiatable;
+        expect(prototypeDef.definition.instantiationMode).toBe("prototype");
+        const singletonDef = container.definitionsRepository.getDefinitionByType(SingletonTest) as IInstantiatable;
+        expect(singletonDef.definition.instantiationMode).toBe("singleton");
+    });
 });
 
 // [1.] classes
 
-@Injectable
+@Injectable()
 class Something {
 
     public getValue() {
@@ -51,7 +72,7 @@ class Something {
     }
 }
 
-@Injectable
+@Injectable()
 class SomethingElse {
 
     public getValue() {
@@ -60,7 +81,7 @@ class SomethingElse {
 }
 
 
-@Injectable
+@Injectable()
 class Client {
     constructor(private readonly something: Something, private readonly somethingElse: SomethingElse) {
     }
@@ -70,7 +91,7 @@ class Client {
     }
 }
 
-@Injectable
+@Injectable()
 class Service {
     constructor(private readonly client: Client) {
     }
@@ -82,7 +103,7 @@ class Service {
 
 // [2.] classes
 
-@Injectable
+@Injectable()
 class Client2 {
     constructor(private readonly something: Something, private readonly defaultStr = "default str test") {
     }
@@ -96,7 +117,7 @@ class Client2 {
     }
 }
 
-@Injectable
+@Injectable()
 class Service2 {
     constructor(private readonly client: Client2) {
     }
@@ -109,7 +130,7 @@ class Service2 {
 
 // [3.]
 
-@Injectable
+@Injectable()
 class Client3 {
     constructor(private readonly something: Something, private readonly defaultStr = "default str test, injected") {
     }
@@ -124,7 +145,7 @@ class Client3 {
 }
 
 
-@Injectable
+@Injectable()
 class Service3 {
     constructor(@Inject("Client3") private readonly client: IClient) {
     }

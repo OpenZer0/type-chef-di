@@ -15,32 +15,32 @@ describe("Context test", () => {
 
 
 
-@Injectable
+@Injectable()
 class D1 {
     T = "hello";
 
     constructor() {
     }
 }
-@Injectable
+@Injectable()
 class D2 {
     T = "hello2";
 
     constructor() {
     }
 }
-@Injectable
+@Injectable()
 class A {
     constructor(public readonly d1: D1) {
     }
 }
 
-@Injectable
+@Injectable()
 class B extends A {
     constB = "bbbb";
 }
 
-@Injectable
+@Injectable()
 class C extends B {
     constC = "CCCC";
 }

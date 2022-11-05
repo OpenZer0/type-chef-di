@@ -1,7 +1,7 @@
 import "reflect-metadata";
 import { IContainer } from "./interfaces/IContainer";
 import { InstantiationModeCO } from "./chainingOptions/InstantiationModeCO";
-import { IInstantiatable, instantiationMode } from "./interfaces/IInstantiatable";
+import { IInstantiatable, IInstantiationMode } from "./interfaces/IInstantiatable";
 import { IResolver } from "./interfaces/IResolver";
 import { ConstructorInstantiation } from "./definitions/ConstructorInstantiation";
 import { ConstantInstantiation } from "./definitions/ConstantInstantiation";
@@ -14,6 +14,7 @@ import { v4 as uuidv4 } from "uuid";
 import { Type } from "./interfaces/IType";
 import { IInitializer } from "./modifiers/initializers/IInitializer";
 import { IBaseDefinition } from "./definitions/definitionInterfaces/IBaseDefinition";
+import { IInjectableOptions } from "./decorators/Injectable";
 
 export type singletonsType = Map<string, any>;
 
@@ -31,7 +32,7 @@ export class Container implements IContainer, IResolver {
 
     initializers = new Initializers(this);
 
-    protected DEFAULT_INSTANTIATION: instantiationMode = "singleton";
+    protected DEFAULT_INSTANTIATION: IInstantiationMode = "singleton";
 
     constructor(public readonly options: IContainerOption = {
         enableAutoCreate: false,
@@ -44,8 +45,9 @@ export class Container implements IContainer, IResolver {
      * Key-Value registration. You can inject the registered keys with @Inject(key) decorator
      */
     public register(key: string, value: any): InstantiationModeCO {
-        const decoratorTags = this.getTagsMeta(value);
-        this.setDefinition(key, this.getDefaultInstantiationDef(key, value, decoratorTags));
+        const decoratorTags = Utils.getMeta<string[]>(Keys.ADD_TAGS_KEY, value, []);
+        const injectableMeta = Utils.getMeta<IInjectableOptions>(Keys.INJECTABLE_KEY, value, {instantiation: this.DEFAULT_INSTANTIATION});
+        this.setDefinition(key, this.getDefaultInstantiationDef(key, value, decoratorTags, injectableMeta.instantiation));
         return new InstantiationModeCO(this, key);
     }
 
@@ -157,14 +159,14 @@ export class Container implements IContainer, IResolver {
         this.definitionsRepository.definitions.set(key, definition);
     }
 
-    private getDefaultInstantiationDef(key: string, content: any, decoratorTags: string[]): IInstantiatable {
+    private getDefaultInstantiationDef(key: string, content: any, decoratorTags: string[], instantiationMode?: IInstantiationMode): IInstantiatable {
 
         if (Utils.isClass(content)) {
             const classInstance = new ConstructorInstantiation({
                 key,
                 content,
                 context: {},
-                instantiationMode: this.DEFAULT_INSTANTIATION,
+                instantiationMode: instantiationMode || this.DEFAULT_INSTANTIATION,
             }, this);
             classInstance.tags = [...decoratorTags];
             return classInstance;

@@ -1,6 +1,6 @@
 import { Container, Injectable } from "../../lib";
 
-@Injectable
+@Injectable()
 class SayService {
 
     public getString() {
@@ -8,7 +8,7 @@ class SayService {
     }
 }
 
-@Injectable
+@Injectable()
 class SayService2 {
 
     public getString() {
@@ -17,7 +17,7 @@ class SayService2 {
 }
 
 
-@Injectable
+@Injectable()
 class Client {
     constructor(private readonly sayService: SayService, private readonly sayService2: SayService2) {
     }
@@ -27,7 +27,7 @@ class Client {
     }
 }
 
-@Injectable
+@Injectable()
 class Service {
     constructor(private readonly client: Client) {
     }
