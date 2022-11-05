@@ -19,7 +19,7 @@ export type singletonsType = Map<string, any>;
 
 export interface IContainerOption {
     enableAutoCreate: boolean; // if dependency not exist in the container, creat it and register
-    initializers: Type<IInitializer>[];
+    initializers?: Type<IInitializer>[];
 }
 
 
@@ -37,7 +37,7 @@ export class Container implements IContainer, IResolver {
         enableAutoCreate: false,
         initializers: []
     }) {
-        this.initializers.addInitializers(options.initializers);
+        this.initializers.addInitializers(options.initializers || []);
     }
 
     /**
@@ -105,19 +105,9 @@ export class Container implements IContainer, IResolver {
         return instance;
     }
 
-    async getBySpecificTags(tags: object): Promise<any[]> {
+    async resolveByTags(tags: string | string[]): Promise<any[]> {
+        if (typeof tags === "string") { tags = [tags]; }
         const keys = this.definitionsRepository.getDefinitionKeysBySpecificTags(tags);
-
-        const result = [];
-        for (const key of keys) {
-            result.push(await this.resolve(key));
-        }
-
-        return result;
-    }
-
-    async getByTags(tags: string[]): Promise<any[]> {
-        const keys = this.definitionsRepository.getDefinitionKeysByTags(tags);
 
         const result = [];
         for (const key of keys) {
@@ -167,7 +157,7 @@ export class Container implements IContainer, IResolver {
         this.definitionsRepository.definitions.set(key, definition);
     }
 
-    private getDefaultInstantiationDef(key: string, content: any, decoratorTags: any): IInstantiatable {
+    private getDefaultInstantiationDef(key: string, content: any, decoratorTags: string[]): IInstantiatable {
 
         if (Utils.isClass(content)) {
             const classInstance = new ConstructorInstantiation({
@@ -176,7 +166,7 @@ export class Container implements IContainer, IResolver {
                 context: {},
                 instantiationMode: this.DEFAULT_INSTANTIATION,
             }, this);
-            classInstance.tags = decoratorTags;
+            classInstance.tags = [...decoratorTags];
             return classInstance;
         }
         return new ConstantInstantiation({
@@ -203,7 +193,7 @@ export class Container implements IContainer, IResolver {
 
     private getTagsMeta(ctr: Type) {
         if (!Utils.isClass(ctr)) return;
-        const meta = Reflect.getMetadata(Keys.ADD_TAGS_KEY, ctr.constructor) || {};
-        return meta[Keys.ADD_TAGS_KEY];
+        const meta = Reflect.getMetadata(Keys.ADD_TAGS_KEY, ctr.prototype) || {};
+        return meta[Keys.ADD_TAGS_KEY] || [];
     }
 }

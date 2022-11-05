@@ -35,20 +35,12 @@ export class DefinitionRepository {
         throw new Error(`definition not found by type: ${constructor}`);
     }
 
-    getDefinitionKeysBySpecificTags(tagObj: any): string[] {
+    getDefinitionKeysBySpecificTags(tags: string[]): string[] {
         const resultKeys: string[] = [];
-        const tags = Object.keys(tagObj);
-
 
         this.definitions.forEach((value: IInstantiatable, key: string) => {
-            let found = true;
-            tags.forEach((tag) => {
-                if (!(value.tags.hasOwnProperty(tag) && value.tags[tag] === tagObj[tag])) {
-                    found = false;
-                }
-            });
-
-            if (found) {
+            const foundTag = tags.find(tag => value.tags.includes(tag));
+            if (foundTag) {
                 resultKeys.push(key);
             }
         });
@@ -56,22 +48,10 @@ export class DefinitionRepository {
         return resultKeys;
     }
 
-    getDefinitionKeysByTags(tags: string[]): string[] {
-        const resultKeys: string[] = [];
-        this.definitions.forEach((value: IInstantiatable, key: string) => {
-            tags.forEach((tag) => {
-                if (value.tags.hasOwnProperty(tag)) {
-                    resultKeys.push(key);
-                }
-            });
-        });
-        return resultKeys;
-    }
-
-    addTags(key: string, tagsObj: object): void {
+    addTags(key: string, tags: string[]): string[] {
         const definition = this.getDefinition(key);
-        const newTags = {...definition.tags, ...tagsObj};
-        definition.tags = newTags;
+        definition.tags.push(...tags);
+        return definition.tags;
     }
 
 }

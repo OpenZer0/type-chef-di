@@ -109,8 +109,8 @@ export class ChainingOptions implements IContainerChainingOptions {
         return this;
     }
 
-    addTags(tagsObj: object) {
-        this.container.definitionsRepository.addTags(this.key, tagsObj);
+    addTags(tags: string[]) {
+        this.container.definitionsRepository.addTags(this.key, tags);
     }
 
 }

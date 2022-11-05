@@ -29,7 +29,7 @@ export class InstantiationModeCO {
         this.chainingOptions.asConstant();
     }
 
-    addTags(tags: object) {
+    addTags(tags: string[]) {
         this.chainingOptions.addTags(tags);
     }
 

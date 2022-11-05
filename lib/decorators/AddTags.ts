@@ -1,11 +1,15 @@
 import { Keys } from "../Keys";
 
-export function AddTags(tags: any) {
+export function AddTags(tags: string[] | string) {
     return (
-        target: object
+        target: Function
     ) => {
-        const metadata: any = Reflect.getMetadata(Keys.ADD_TAGS_KEY, target.constructor) || {};
+        if (typeof tags === "string") {
+            tags = [tags];
+        }
+
+        const metadata: any = Reflect.getMetadata(Keys.ADD_TAGS_KEY, target.prototype) || {};
         metadata[Keys.ADD_TAGS_KEY] = tags;
-        Reflect.defineMetadata(Keys.ADD_TAGS_KEY, metadata, target.constructor);
+        Reflect.defineMetadata(Keys.ADD_TAGS_KEY, metadata, target.prototype);
     };
 }

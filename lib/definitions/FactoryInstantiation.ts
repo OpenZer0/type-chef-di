@@ -4,7 +4,7 @@ import { IInstantiatable } from "../interfaces/IInstantiatable";
 import { IResolver } from "../interfaces/IResolver";
 
 export class FactoryInstantiation implements IInstantiatable {
-    tags = {};
+    tags: string[] = [];
 
     definition: IFactoryDefinition;
 

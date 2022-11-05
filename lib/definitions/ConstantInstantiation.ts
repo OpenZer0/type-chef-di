@@ -2,7 +2,7 @@ import { IInstantiatable } from "../interfaces/IInstantiatable";
 import { IConstantDefinition } from "./definitionInterfaces/IConstantDefinition";
 
 export class ConstantInstantiation implements IInstantiatable {
-    tags = {};
+    tags: string[] = [];
 
     definition: IConstantDefinition;
 

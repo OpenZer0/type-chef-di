@@ -4,7 +4,7 @@ import { Container } from "../Container";
 import { ArgResolver } from "./helpers/ArgResolver";
 
 export class FactoryResultInstantiation implements IInstantiatable {
-    tags = {};
+    tags: string[] = [];
 
     definition: IFactoryResultDefinition;
     argResolver: ArgResolver;

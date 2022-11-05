@@ -7,7 +7,7 @@ import { Utils } from "../Utils";
 import { IParam } from "../decorators/Inject";
 
 export class ConstructorInstantiation implements IInstantiatable {
-    tags = {};
+    tags: string[] = [];
 
     definition: IConstructorDefinition;
     argResolver: ArgResolver;
@@ -22,11 +22,11 @@ export class ConstructorInstantiation implements IInstantiatable {
     }
 
     async resolveParentArgs(ctr: any) {
-        const args: any[] = []
+        const args: any[] = [];
         const parentCtr = Object.getPrototypeOf(ctr);
         const parentArgs: any[] = Reflect.getMetadata("design:paramtypes", parentCtr) || [];
         for (const parentArg of parentArgs) {
-            args.push(await this.resolver.resolveByType(parentArg))
+            args.push(await this.resolver.resolveByType(parentArg));
         }
 
         return args;
@@ -56,7 +56,7 @@ export class ConstructorInstantiation implements IInstantiatable {
     private async resolveConstructor(ctr: any, context: any, decoratorKey: symbol) {
         const meta = Reflect.getMetadata(decoratorKey, ctr) || {};
         let args: any[] = await this.argResolver.resolveArguments(meta, context, Keys.INJECT_PROPERTY_DECORATOR_KEY);
-        if (args.length == 0) {
+        if (args.length === 0) {
             args = await this.resolveParentArgs(ctr);
         }
 

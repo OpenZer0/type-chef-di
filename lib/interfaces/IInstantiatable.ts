@@ -4,7 +4,7 @@ export type instantiationMode = "prototype" | "singleton";
 
 export interface IInstantiatable {
     definition: IBaseDefinition;
-    tags: any;
+    tags: string[];
 
     instantiate(): Promise<any>;
 }
