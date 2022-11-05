@@ -1,3 +1,19 @@
+# [0.2.0](https://github.com/OpenZer0/type-chef-di/compare/v0.1.5...v0.2.0) (2022-11-05)
+
+
+### Bug Fixes
+
+* MIT license ([3b1375b](https://github.com/OpenZer0/type-chef-di/commit/3b1375be335cb6d9b7a8800f9592bbde087abeb5))
+
+
+### Features
+
+* @Injectable instantiation option [#3](https://github.com/OpenZer0/type-chef-di/issues/3) ([725d7a1](https://github.com/OpenZer0/type-chef-di/commit/725d7a1a20decd0a1d90c0b64e2ea55630c4f022))
+* can add custom initializer [#10](https://github.com/OpenZer0/type-chef-di/issues/10) ([60dd80c](https://github.com/OpenZer0/type-chef-di/commit/60dd80c43936be748a2b312c2bf20595d72ff1b9))
+* tags, tags test, fix container option [#13](https://github.com/OpenZer0/type-chef-di/issues/13) ([0c8ee16](https://github.com/OpenZer0/type-chef-di/commit/0c8ee1600f1f98b8781e3f5036caa97a85b00709))
+
+
+
 ## [0.1.5](https://github.com/OpenZer0/type-chef-di/compare/v0.1.4...v0.1.5) (2022-11-03)
 
 
@@ -32,15 +48,6 @@
 ### Bug Fixes
 
 * version ([ecf1e5c](https://github.com/OpenZer0/type-chef-di/commit/ecf1e5c05ff7a0a7e8c2119e4c1ea90c95824af2))
-
-
-
-# [0.1.0](https://github.com/OpenZer0/type-chef-di/compare/485b7655f4d61e480412eaccfc456994af857752...v0.1.0) (2022-11-02)
-
-
-### Bug Fixes
-
-* ts-config, package-json, add publish script, index generation, basic gitignore, add sonarcloud badges ([485b765](https://github.com/OpenZer0/type-chef-di/commit/485b7655f4d61e480412eaccfc456994af857752))
 
 
 
