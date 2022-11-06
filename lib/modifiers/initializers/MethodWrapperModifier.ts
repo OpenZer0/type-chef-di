@@ -17,7 +17,7 @@ export class MethodWrapperModifier implements IInitializer {
         if (!wrapperMeta) return resolvedInstance;
 
         for (const key in wrapperMeta) {
-            const resolveRunAfter: IMethodWrapper = await this.resolver.resolve(wrapperMeta[key]);
+            const resolveRunAfter: IMethodWrapper =  typeof wrapperMeta[key] === "string" ? await this.resolver.resolve(wrapperMeta[key]) : await this.resolver.resolveByType(wrapperMeta[key]);
             const descriptorOriginal = Reflect.getMetadata(Keys.METHOD_DESCRIPTOR_KEY, resolvedInstance.constructor) || {};
             resolvedInstance[key] =  async function (this: any, ...args: any) {
                 return resolveRunAfter.run(() => descriptorOriginal.value?.apply(this, args), args);

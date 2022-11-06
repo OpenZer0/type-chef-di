@@ -17,7 +17,7 @@ export class RunAfterModifier implements IInitializer {
         if (!afterMeta) return resolvedInstance;
 
         for (const key in afterMeta) {
-            const resolveRunAfter: IRunAfter = await this.resolver.resolve(afterMeta[key]);
+            const resolveRunAfter: IRunAfter = typeof afterMeta[key] === "string" ? await this.resolver.resolve(afterMeta[key]) : await this.resolver.resolveByType(afterMeta[key]);
             const descriptorOriginal = Reflect.getMetadata(Keys.METHOD_DESCRIPTOR_KEY, resolvedInstance.constructor) || {};
             resolvedInstance[key]  = function (this: any, ...args: any) {
                 const res = descriptorOriginal.value?.apply(this, args);

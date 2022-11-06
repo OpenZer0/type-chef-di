@@ -17,7 +17,7 @@ export class RunBeforeModifier implements IInitializer {
         if (!beforeMeta) return resolvedInstance;
 
         for (const key in beforeMeta) {
-            const resolveRunBefore: IRunBefore = await this.resolver.resolve(beforeMeta[key]);
+            const resolveRunBefore: IRunBefore = typeof beforeMeta[key] === "string" ? await this.resolver.resolve(beforeMeta[key]) : await this.resolver.resolveByType(beforeMeta[key]);
             const descriptorOriginal = Reflect.getMetadata(Keys.METHOD_DESCRIPTOR_KEY, resolvedInstance.constructor) || {};
             resolvedInstance[key]  =  function (this: any, ...args: any) {
                 resolveRunBefore.run();

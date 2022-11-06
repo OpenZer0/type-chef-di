@@ -1,6 +1,8 @@
 import { Keys } from "../Keys";
+import { Type } from "../interfaces/IType";
+import { IRunAfter } from "../interfaces/IRunAfter";
 
-export function RunAfter(key: string) {
+export function RunAfter(key: string | Type<IRunAfter>) {
     return (
         target: object,
         propertyKey: string,

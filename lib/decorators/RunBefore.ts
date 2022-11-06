@@ -1,6 +1,8 @@
 import { Keys } from "../Keys";
+import { Type } from "../interfaces/IType";
+import { IRunBefore } from "../interfaces/IRunBefore";
 
-export function RunBefore(key: string) {
+export function RunBefore(key: string | Type<IRunBefore>) {
     return (
         target: object,
         propertyKey: string,

@@ -31,6 +31,20 @@ describe("RunBefore tests", () => {
     });
 });
 
+class MyRunAfter implements IRunAfter {
+    run(): any {
+        TestAfter.testVar = "change";
+    }
+
+}
+
+class MyRunAfter2 implements IRunAfter {
+    run(): any {
+        TestAfter.testVar = "change2";
+    }
+
+}
+
 
 export class TestAfter {
     static testVar = "something";
@@ -39,22 +53,22 @@ export class TestAfter {
     testFn() {
         return TestAfter.testVar;
     }
-}
 
-class MyRunAfter implements IRunAfter {
-    run(): any {
-        TestAfter.testVar = "change";
+    @RunAfter(MyRunAfter2)
+    testFn2() {
+        return TestAfter.testVar;
     }
-
 }
 
 describe("RunAfter tests", () => {
     test("RunAfter tests", async () => {
-        const container = new Container();
+        const container = new Container({enableAutoCreate: true});
         container.register("MyRunAfter", MyRunAfter);
         container.register("TestAfter", TestAfter);
         const testObj = await container.resolve<TestAfter>("TestAfter");
         expect(testObj.testFn()).toBe("something");
         expect(TestAfter.testVar).toBe("change");
+        testObj.testFn2();
+        expect(TestAfter.testVar).toBe("change2");
     });
 });
