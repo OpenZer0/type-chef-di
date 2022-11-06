@@ -13,18 +13,16 @@ export class RunAfterModifier implements IInitializer {
     }
 
     async setRunAfter(resolvedInstance: any, definition: any) {
-        const beforeMeta = Reflect.getMetadata(Keys.AFTER_METHOD_KEY, resolvedInstance.constructor) || {};
-        if (!beforeMeta) return resolvedInstance;
+        const afterMeta = Reflect.getMetadata(Keys.AFTER_METHOD_KEY, resolvedInstance.constructor) || {};
+        if (!afterMeta) return resolvedInstance;
 
-        for (const key in beforeMeta) {
-            const resolveRunAfter: IRunAfter = await this.resolver.resolve(beforeMeta[key]);
-            const originalFn = resolvedInstance[key];
-
-            resolvedInstance[key] = (...params: any) => {
-                const result = originalFn(...params);
+        for (const key in afterMeta) {
+            const resolveRunAfter: IRunAfter = await this.resolver.resolve(afterMeta[key]);
+            const descriptorOriginal = Reflect.getMetadata(Keys.METHOD_DESCRIPTOR_KEY, resolvedInstance.constructor) || {};
+            resolvedInstance[key]  = function (this: any, ...args: any) {
+                const res = descriptorOriginal.value?.apply(this, args);
                 resolveRunAfter.run();
-
-                return result;
+                return res;
             };
         }
 

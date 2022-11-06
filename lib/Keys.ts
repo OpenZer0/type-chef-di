@@ -6,6 +6,7 @@ export class Keys {
     static readonly IS_REQUIRED_PARAM: unique symbol = Symbol("IS_REQUIRED_PARAM");
     static readonly PROPERTY_INJECT_KEY: unique symbol = Symbol("PROPERTY_INJECT_KEY");
     static readonly BEFORE_METHOD_KEY: unique symbol = Symbol("BEFORE_METHOD_KEY");
+    static readonly METHOD_DESCRIPTOR_KEY: unique symbol = Symbol("METHOD_DESCRIPTOR_KEY");
     static readonly AFTER_METHOD_KEY: unique symbol = Symbol("AFTER_METHOD_KEY");
     static readonly METHOD_WRAPPER_KEY: unique symbol = Symbol("METHOD_WRAPPER_KEY");
     static readonly ADD_TAGS_KEY: unique symbol = Symbol("ADD_TAGS_KEY");

@@ -12,5 +12,6 @@ export function RunAfter(key: string) {
         metadata[propertyKey] = key;
 
         Reflect.defineMetadata(Keys.AFTER_METHOD_KEY, metadata, target.constructor);
+        Reflect.defineMetadata(Keys.METHOD_DESCRIPTOR_KEY, {...descriptor}, target.constructor);
     };
 }

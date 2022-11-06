@@ -18,11 +18,10 @@ export class RunBeforeModifier implements IInitializer {
 
         for (const key in beforeMeta) {
             const resolveRunBefore: IRunBefore = await this.resolver.resolve(beforeMeta[key]);
-            const originalFn = resolvedInstance[key];
-
-            resolvedInstance[key] = (...params: any) => {
+            const descriptorOriginal = Reflect.getMetadata(Keys.METHOD_DESCRIPTOR_KEY, resolvedInstance.constructor) || {};
+            resolvedInstance[key]  =  function (this: any, ...args: any) {
                 resolveRunBefore.run();
-                return originalFn(...params);
+                return descriptorOriginal.value?.apply(this, args);
             };
         }
 

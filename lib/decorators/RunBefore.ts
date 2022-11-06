@@ -11,5 +11,6 @@ export function RunBefore(key: string) {
         // @ts-ignore
         metadata[propertyKey] = key;
         Reflect.defineMetadata(Keys.BEFORE_METHOD_KEY, metadata, target.constructor);
+        Reflect.defineMetadata(Keys.METHOD_DESCRIPTOR_KEY, {...descriptor}, target.constructor);
     };
 }

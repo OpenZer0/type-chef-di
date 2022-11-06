@@ -13,15 +13,14 @@ export class MethodWrapperModifier implements IInitializer {
     }
 
     async setMethodWrapper(resolvedInstance: any, definition: any) {
-        const beforeMeta = Reflect.getMetadata(Keys.METHOD_WRAPPER_KEY, resolvedInstance.constructor) || {};
-        if (!beforeMeta) return resolvedInstance;
+        const wrapperMeta = Reflect.getMetadata(Keys.METHOD_WRAPPER_KEY, resolvedInstance.constructor) || {};
+        if (!wrapperMeta) return resolvedInstance;
 
-        for (const key in beforeMeta) {
-            const resolveMethodWrapper: IMethodWrapper = await this.resolver.resolve(beforeMeta[key]);
-            const originalFn = resolvedInstance[key];
-
-            resolvedInstance[key] = (...params: any) => {
-                return resolveMethodWrapper.run(originalFn, params);
+        for (const key in wrapperMeta) {
+            const resolveRunAfter: IMethodWrapper = await this.resolver.resolve(wrapperMeta[key]);
+            const descriptorOriginal = Reflect.getMetadata(Keys.METHOD_DESCRIPTOR_KEY, resolvedInstance.constructor) || {};
+            resolvedInstance[key] =  async function (this: any, ...args: any) {
+                return resolveRunAfter.run(() => descriptorOriginal.value?.apply(this, args), args);
             };
         }
 
