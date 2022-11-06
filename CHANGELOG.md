@@ -1,3 +1,13 @@
+## [0.2.1](https://github.com/OpenZer0/type-chef-di/compare/v0.2.0...v0.2.1) (2022-11-06)
+
+
+### Bug Fixes
+
+* enable Type key in MethodWrapper, RunBefore, RunAfter param [#15](https://github.com/OpenZer0/type-chef-di/issues/15) ([d6dcd31](https://github.com/OpenZer0/type-chef-di/commit/d6dcd31ca028ad9eafa2ac8bbf243aa8acdf43fa))
+* modifiers context MethodWrapper, RunBefore, RunAfter [#6](https://github.com/OpenZer0/type-chef-di/issues/6) ([b223199](https://github.com/OpenZer0/type-chef-di/commit/b223199c4e0eaff3bb741ac802e8f43303184a68))
+
+
+
 # [0.2.0](https://github.com/OpenZer0/type-chef-di/compare/v0.1.5...v0.2.0) (2022-11-05)
 
 
@@ -39,15 +49,6 @@
 
 * add package lock ([11889e4](https://github.com/OpenZer0/type-chef-di/commit/11889e4bbb92a6ef8051cdea2d4cf0b56cdee257))
 * workflow npm ci ([a1d3c41](https://github.com/OpenZer0/type-chef-di/commit/a1d3c41f9a8e98591cc6ec4bf6bec5927e938c5c))
-
-
-
-## [0.1.2](https://github.com/OpenZer0/type-chef-di/compare/v0.1.0...v0.1.2) (2022-11-02)
-
-
-### Bug Fixes
-
-* version ([ecf1e5c](https://github.com/OpenZer0/type-chef-di/commit/ecf1e5c05ff7a0a7e8c2119e4c1ea90c95824af2))
 
 
 
