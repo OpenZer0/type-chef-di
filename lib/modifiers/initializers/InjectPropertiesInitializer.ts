@@ -22,7 +22,7 @@ export class InjectPropertiesInitializer implements IInitializer {
         };
 
         for (const key in propertiesMeta) {
-            const resolvedKey = await this.resolver.resolve(propertiesMeta[key]);
+            const resolvedKey = typeof  propertiesMeta[key] === "string" ? await this.resolver.resolve( propertiesMeta[key]) : await this.resolver.resolveByType( propertiesMeta[key]);
             setInstanceProperty(key, resolvedKey);
         }
 

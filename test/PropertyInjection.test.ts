@@ -34,4 +34,36 @@ describe("Property injection tests", () => {
         } catch (e) {
         }
     });
+
+    test("inject type property", async () => {
+        const container = new Container({enableAutoCreate: true});
+
+        interface IFoo {
+        getNumber(): number;
+        }
+
+        class Foo implements IFoo {
+            getNumber() {
+                return 69;
+            }
+        }
+        class Foo2 implements IFoo {
+            getNumber() {
+                return 420;
+            }
+        }
+
+        class Test {
+
+            @InjectProperty<IFoo>(Foo)
+            testProp!: IFoo;
+
+            @InjectProperty<IFoo>(Foo2)
+            testProp2!: IFoo;
+        }
+
+        const testInstance = await container.resolveByType<Test>(Test);
+        expect(testInstance.testProp.getNumber()).toBe(69);
+        expect(testInstance.testProp2.getNumber()).toBe(420);
+    });
 });

@@ -1,6 +1,7 @@
 import { Keys } from "../Keys";
+import { Type } from "../interfaces/IType";
 
-export function InjectProperty<I = any>(key: string) {
+export function InjectProperty<I = any>(key: string | Type<I>) {
     return function inject<
         T extends  Record<K, I>,
         K extends string>(target: T, propertyKey: K) {
