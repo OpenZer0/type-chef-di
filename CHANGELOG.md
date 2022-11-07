@@ -1,3 +1,12 @@
+# [0.3.0](https://github.com/OpenZer0/type-chef-di/compare/v0.2.1...v0.3.0) (2022-11-07)
+
+
+### Features
+
+* enable Inject decorator usage with Types [#16](https://github.com/OpenZer0/type-chef-di/issues/16) ([e5633e5](https://github.com/OpenZer0/type-chef-di/commit/e5633e5ca1d5e690917ff7952684a725b7aa54d8))
+
+
+
 ## [0.2.1](https://github.com/OpenZer0/type-chef-di/compare/v0.2.0...v0.2.1) (2022-11-06)
 
 
@@ -39,16 +48,6 @@
 ### Bug Fixes
 
 * publish action ([a5dcd0f](https://github.com/OpenZer0/type-chef-di/commit/a5dcd0f852f835d204f78baef0c44c3a933415dd))
-
-
-
-## [0.1.3](https://github.com/OpenZer0/type-chef-di/compare/v0.1.2...v0.1.3) (2022-11-03)
-
-
-### Bug Fixes
-
-* add package lock ([11889e4](https://github.com/OpenZer0/type-chef-di/commit/11889e4bbb92a6ef8051cdea2d4cf0b56cdee257))
-* workflow npm ci ([a1d3c41](https://github.com/OpenZer0/type-chef-di/commit/a1d3c41f9a8e98591cc6ec4bf6bec5927e938c5c))
 
 
 
