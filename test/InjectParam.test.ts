@@ -75,4 +75,54 @@ describe("InjectParam tests", () => {
 
     });
 
+    test("inject TYPE params", async () => {
+        interface ITextFactory {
+            getHello(): string;
+        }
+
+        class TextFactory implements ITextFactory {
+            getHello() {
+                return "hello world 1";
+            }
+        }
+
+        class TextFactory2 implements ITextFactory {
+            getHello() {
+                return "hello world 2";
+            }
+        }
+
+        class Client {
+            constructor(@Inject("name") private readonly name: string,
+                        @Inject<ITextFactory>(TextFactory) private readonly textFactory1: ITextFactory,
+                        @Inject<ITextFactory>(TextFactory2) private readonly textFactory2: ITextFactory) {
+            }
+
+            public say() {
+                return `My name is ${this.name}`;
+            }
+
+            getText1() {
+                return this.textFactory1.getHello();
+            }
+
+            getText2() {
+                return this.textFactory2.getHello();
+            }
+        }
+
+        const container = new Container({enableAutoCreate: true});
+
+        container.register("name", "John");
+        container.register("age", 30);
+        container.register("client", Client);
+
+        const client = await container.resolve<Client>("client");
+        const expected = client.say();
+        expect(expected).toBe("My name is John");
+        expect(client.getText1()).toBe( "hello world 1");
+        expect(client.getText2()).toBe( "hello world 2");
+
+    });
+
 });

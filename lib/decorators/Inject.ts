@@ -1,10 +1,11 @@
 import "reflect-metadata";
 import { Keys } from "../Keys";
+import { Type } from "../interfaces/IType";
 
 /*
 * Save meta for constructor parameter or function parameter
 * */
-export function Inject(propertyKey?: string) {
+export function Inject<T = any>(propertyKey?: string | Type<T>) {
     return (
         target: any,
         key: string | symbol,
@@ -21,7 +22,7 @@ export function Inject(propertyKey?: string) {
             metadata[Keys.IS_REQUIRED_PARAM] = [];
         }
 
-        const param: IParam = {key: propertyKey, isRequired: (parameterIndex < reqParamCount), index: parameterIndex};
+        const param: IInjectParamMeta = {key: propertyKey, isRequired: (parameterIndex < reqParamCount), index: parameterIndex};
 
         // @ts-ignore
         metadata[metaKey][parameterIndex] = param;
@@ -29,7 +30,7 @@ export function Inject(propertyKey?: string) {
     };
 }
 
-export interface IParam {
+export interface IInjectParamMeta {
     key: any;
     isRequired: boolean;
     index: number;

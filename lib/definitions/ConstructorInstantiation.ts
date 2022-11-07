@@ -4,7 +4,7 @@ import { IInstantiatable } from "../interfaces/IInstantiatable";
 import { IResolver } from "../interfaces/IResolver";
 import { ArgResolver } from "./helpers/ArgResolver";
 import { Utils } from "../Utils";
-import { IParam } from "../decorators/Inject";
+import { IInjectParamMeta } from "../decorators/Inject";
 
 export class ConstructorInstantiation implements IInstantiatable {
     tags: string[] = [];
@@ -36,7 +36,7 @@ export class ConstructorInstantiation implements IInstantiatable {
     * If has OTHER_INJECTION_REQUIRED arg (arg without key), this function will inject by type
     *  - if enable AutoCreate in the options then if the container item not found it will create and register
     * */
-    async resolveArgsWithoutKey(ctr: any, args: IParam[] | any): Promise<any[]> {
+    async resolveArgsWithoutKey(ctr: any, args: IInjectParamMeta[] | any): Promise<any[]> {
         const constructorArgs = Reflect.getMetadata("design:paramtypes", ctr) || [];
         // correction if 0 param in constructorArgs
         if (args.length === 0) {
@@ -54,7 +54,7 @@ export class ConstructorInstantiation implements IInstantiatable {
     }
 
     private async resolveConstructor(ctr: any, context: any, decoratorKey: symbol) {
-        const meta = Reflect.getMetadata(decoratorKey, ctr) || {};
+        const meta: any = Reflect.getMetadata(decoratorKey, ctr) || {};
         let args: any[] = await this.argResolver.resolveArguments(meta, context, Keys.INJECT_PROPERTY_DECORATOR_KEY);
         if (args.length === 0) {
             args = await this.resolveParentArgs(ctr);

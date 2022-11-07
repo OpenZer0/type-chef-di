@@ -1,12 +1,13 @@
 import { Keys } from "../Keys";
 import { Type } from "../interfaces/IType";
 import { IMethodWrapper } from "../interfaces/IMethodWrapper";
+import "reflect-metadata";
 
-export function MethodWrapper< V extends TypedPropertyDescriptor<(...args: unknown[]) => void>>(key: string | Type<IMethodWrapper>) {
+export function MethodWrapper(key: string | Type<IMethodWrapper>) {
     return (
         target: object,
         propertyKey: string,
-        descriptor: V
+        descriptor: any
     ) => {
 
         const metadata: any = Reflect.getMetadata(Keys.METHOD_WRAPPER_KEY, target.constructor) || {};

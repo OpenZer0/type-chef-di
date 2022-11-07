@@ -1,5 +1,5 @@
 import { IResolver } from "../../interfaces/IResolver";
-import { IParam } from "../../decorators/Inject";
+import { IInjectParamMeta } from "../../decorators/Inject";
 import { Keys } from "../../Keys";
 
 export class ArgResolver {
@@ -7,12 +7,12 @@ export class ArgResolver {
     constructor(private readonly resolver: IResolver) {
     }
 
-    paramIsNotRequired(param: IParam): boolean {
+    paramIsNotRequired(param: IInjectParamMeta): boolean {
         return !this.resolver.hasKeyInDefinition(param.key) && !param?.isRequired;
     }
 
     async resolveArguments(meta: any, context: any, decoratorKey: symbol | string): Promise<any[]> {
-        let args: IParam[] = meta[decoratorKey];
+        let args: IInjectParamMeta[] = meta[decoratorKey];
         if (!args) return [];
         if (context) {
             args = this.mapContextToArgs(args, context);
@@ -25,14 +25,14 @@ export class ArgResolver {
             } else if (this.paramIsNotRequired(arg)) {
                 resolvedArgs.push(undefined);
             } else {
-                resolvedArgs.push(await this.resolver.resolve(arg.key, arg.isRequired));
+                resolvedArgs.push(typeof arg.key === "string" ? await this.resolver.resolve(arg.key, arg.isRequired) : await this.resolver.resolveByType(arg.key));
             }
         }
         return resolvedArgs;
     }
 
-    mapContextToArgs(args: IParam[], ctx: any): IParam[] {
-        return args.map((arg: IParam) => {
+    mapContextToArgs(args: IInjectParamMeta[], ctx: any): IInjectParamMeta[] {
+        return args.map((arg: IInjectParamMeta) => {
             if (ctx[arg.key]) {
                 return {key: ctx[arg.key], isRequired: arg.isRequired, index: arg.index};
             }
