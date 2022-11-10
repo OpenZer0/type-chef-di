@@ -1,3 +1,14 @@
+## [0.3.1](https://github.com/OpenZer0/type-chef-di/compare/v0.3.0...v0.3.1) (2022-11-10)
+
+
+### Bug Fixes
+
+* add InjectProperty types ([6e09b30](https://github.com/OpenZer0/type-chef-di/commit/6e09b30e93f5b6cb1eb7119fec9504df2fac82e9))
+* ctr resolvable check, add logger [#18](https://github.com/OpenZer0/type-chef-di/issues/18) ([7414f7e](https://github.com/OpenZer0/type-chef-di/commit/7414f7ecb8d5dbc7c420a5bb7b17cac55ff4dedb))
+* type injection with InjectProperty ([c245e83](https://github.com/OpenZer0/type-chef-di/commit/c245e8393896a3f536bfc754b377870711d3bb0b))
+
+
+
 # [0.3.0](https://github.com/OpenZer0/type-chef-di/compare/v0.2.1...v0.3.0) (2022-11-07)
 
 
@@ -39,15 +50,6 @@
 ### Bug Fixes
 
 * release workflow trigger ([4d2db40](https://github.com/OpenZer0/type-chef-di/commit/4d2db400f9d9ac1b8152855b10ea7e7fdc8a723f))
-
-
-
-## [0.1.4](https://github.com/OpenZer0/type-chef-di/compare/v0.1.3...v0.1.4) (2022-11-03)
-
-
-### Bug Fixes
-
-* publish action ([a5dcd0f](https://github.com/OpenZer0/type-chef-di/commit/a5dcd0f852f835d204f78baef0c44c3a933415dd))
 
 
 
