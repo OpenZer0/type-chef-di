@@ -15,17 +15,21 @@ import { Type } from "./interfaces/IType";
 import { IInitializer } from "./modifiers/initializers/IInitializer";
 import { IBaseDefinition } from "./definitions/definitionInterfaces/IBaseDefinition";
 import { IInjectableOptions } from "./decorators/Injectable";
+import { isObject, isPrimitive } from "util";
+import { Logger } from "./Logger";
 
 export type singletonsType = Map<string, any>;
+export type logLevelType = "none" | "debug";
 
 export interface IContainerOption {
     enableAutoCreate: boolean; // if dependency not exist in the container, creat it and register
     initializers?: Type<IInitializer>[];
+    logLevel?: logLevelType;
 }
 
 
 export class Container implements IContainer, IResolver {
-
+    private logger: Logger;
     definitionsRepository = new DefinitionRepository(this.options);
     protected singletons: singletonsType = new Map<string, any>();
     interceptors: IInterceptor[] = [];
@@ -36,9 +40,11 @@ export class Container implements IContainer, IResolver {
 
     constructor(public readonly options: IContainerOption = {
         enableAutoCreate: false,
-        initializers: []
+        initializers: [],
+        logLevel: "none"
     }) {
         this.initializers.addInitializers(options.initializers || []);
+        this.logger = new Logger(Container.name, options.logLevel || "none");
     }
 
     /**
@@ -47,6 +53,7 @@ export class Container implements IContainer, IResolver {
     public register(key: string, value: any): InstantiationModeCO {
         const decoratorTags = Utils.getMeta<string[]>(Keys.ADD_TAGS_KEY, value, []);
         const injectableMeta = Utils.getMeta<IInjectableOptions>(Keys.INJECTABLE_KEY, value, {instantiation: this.DEFAULT_INSTANTIATION});
+        this.logger.debug(`Register:  key: ${key} --> value: ${isPrimitive(value) || isObject(value) ? JSON.stringify(value, null, 2) : Utils.logClass(value)}`);
         this.setDefinition(key, this.getDefaultInstantiationDef(key, value, decoratorTags, injectableMeta.instantiation));
         return new InstantiationModeCO(this, key);
     }
@@ -58,6 +65,11 @@ export class Container implements IContainer, IResolver {
      */
     public registerTypes(constructors: Type[]): void {
         for (const constructor of constructors) {
+            if (constructor.name === "String" || constructor.name === "Number") {
+                throw new Error(`Can't register primitive as type. Please register another way: ${constructor.name}`);
+            }
+            const id = uuidv4();
+            this.logger.debug(`registerType: ${Utils.logClass(constructor)} key: ${id}`);
             this.register(uuidv4(), constructor);
         }
     }
@@ -66,10 +78,11 @@ export class Container implements IContainer, IResolver {
      * Resolve type
      * @param constructor resolvable ctr
      */
-    public async resolveByType<T>(constructor: Type): Promise<T> {
+    public async resolveByType<T>(constructor: Type<T>): Promise<T> {
         const def = this.definitionsRepository.getDefinitionByType(constructor);
-
+        this.logger.debug("Try to resolve: " + Utils.logClass(constructor));
         if (def === Keys.AUTO_CREATE_DEPENDENCY && this.options.enableAutoCreate) {
+            this.logger.debug("AUTO_CREATE_DEPENDENCY: " + Utils.logClass(constructor));
             this.registerTypes([constructor]);
             return this.resolveByType(constructor);
         } else if (def) {
@@ -88,6 +101,7 @@ export class Container implements IContainer, IResolver {
     public async resolve<T>(key: string): Promise<T> {
         const instantiatable: IInstantiatable = this.definitionsRepository.getDefinition(key);
 
+        this.logger.debug(`Try to resolve key: "${key}" as ${instantiatable.definition.instantiationMode}`);
         switch (instantiatable.definition.instantiationMode) {
             case "prototype": {
                 const originalInstance = await this.resolvePrototype<T>(instantiatable.definition.key);

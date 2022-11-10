@@ -53,7 +53,21 @@ export class ConstructorInstantiation implements IInstantiatable {
         return args;
     }
 
+    private isResolvable(ctr: any) {
+        const meta: any = Reflect.getMetadata(Keys.INJECT_PROPERTY_DECORATOR_KEY, ctr) || {};
+        const constructorArgs = Reflect.getMetadata("design:paramtypes", ctr) || [];
+        const propsMeta = meta[Keys.INJECT_PROPERTY_DECORATOR_KEY] || [];
+        for (let i = 0; i < constructorArgs.length; i++) {
+            if (!propsMeta[i] && !this.resolver.options.enableAutoCreate) {
+                throw new Error(`Can't resolve: ${Utils.logClass(ctr, i)} maybe try to register it or use {enableAutoCreate: true}`);
+            } else if (!propsMeta[i] && this.resolver.options.enableAutoCreate && Utils.isPrimitiveCtr(constructorArgs[i])) {
+                throw new Error(`Can't resolve primitive without registration ${Utils.logClass(ctr, i)}`);
+            }
+        }
+    }
+
     private async resolveConstructor(ctr: any, context: any, decoratorKey: symbol) {
+        this.isResolvable(ctr);
         const meta: any = Reflect.getMetadata(decoratorKey, ctr) || {};
         let args: any[] = await this.argResolver.resolveArguments(meta, context, Keys.INJECT_PROPERTY_DECORATOR_KEY);
         if (args.length === 0) {

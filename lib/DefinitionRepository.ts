@@ -32,7 +32,7 @@ export class DefinitionRepository {
             return Keys.AUTO_CREATE_DEPENDENCY;
         }
 
-        throw new Error(`definition not found by type: ${constructor}`);
+        throw new Error(`Definition not found by type: ${constructor}`);
     }
 
     getDefinitionKeysBySpecificTags(tags: string[]): string[] {
