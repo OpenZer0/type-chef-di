@@ -1,4 +1,10 @@
+![DALL·E 2022-11-12 23 28 30 - Pizza with code bacground, cyberpunk style (1) (1)](https://user-images.githubusercontent.com/48491140/201497104-1836aea0-27cc-42fa-909c-26219dda6d61.png)
+
 # type-chef-di [![npm version](https://img.shields.io/npm/v/type-chef-di)](https://www.npmjs.com/package/type-chef-di) ![NPM Downloads](https://img.shields.io/npm/dw/type-chef-di)
+
+
+
+
 [![SonarCloud](https://sonarcloud.io/images/project_badges/sonarcloud-black.svg)](https://sonarcloud.io/summary/new_code?id=OpenZer0_type-chef-di)
 
 [![Bugs](https://sonarcloud.io/api/project_badges/measure?project=OpenZer0_type-chef-di&metric=bugs)](https://sonarcloud.io/summary/new_code?id=OpenZer0_type-chef-di)
@@ -10,6 +16,7 @@
 [![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=OpenZer0_type-chef-di&metric=security_rating)](https://sonarcloud.io/summary/new_code?id=OpenZer0_type-chef-di)
 [![Technical Debt](https://sonarcloud.io/api/project_badges/measure?project=OpenZer0_type-chef-di&metric=sqale_index)](https://sonarcloud.io/summary/new_code?id=OpenZer0_type-chef-di)
 [![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=OpenZer0_type-chef-di&metric=vulnerabilities)](https://sonarcloud.io/summary/new_code?id=OpenZer0_type-chef-di)
+
 
 ### Documentation: https://zer0-2.gitbook.io/type-chef-di
 
