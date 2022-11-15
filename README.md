@@ -229,5 +229,3 @@ There are still things to improve and document, you can help,
 if you would like to improve the documentation, click on the "edit on GitHub" button and make a pull request.
 
 ![Maurer Krisztián](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/yvztdtigbpibxyjhiby7.png)
-
-Thank you for reading, ❤️ tell me your opinion in the comment section. 🧐
