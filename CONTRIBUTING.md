@@ -10,31 +10,31 @@
 
 - Take a look at the existing [Issues](https://github.com/OpenZer0/type-chef-di/issues) or [create a new issue](https://github.com/OpenZer0/type-chef-di/issues/new/choose)!
 - [Fork the Repo](https://github.com/OpenZer0/type-chef-di/fork). Then, create a branch for any issue that you are working on. Finally, commit your work.
-- Create a **[Pull Request](https://github.com/EddieHubCommunity/LinkFree/compare)** (_PR_), which will be promptly reviewed and given suggestions for improvements by the community.
+- Create a **[Pull Request](https://github.com/OpenZer0/type-chef-di/compare)** (_PR_), which will be promptly reviewed and given suggestions for improvements by the community.
 - Add screenshots or screen captures to your Pull Request to help us understand the effects of the changes proposed in your PR.
 
 ---
 
 ## ⭐ HOW TO MAKE A PULL REQUEST:
 
-**1.** Start by making a Fork of the [**LinkFree**](https://github.com/OpenZer0/type-chef-di) repository. Click on the <a href="https://github.com/OpenZer0/type-chef-di/fork"><img src="https://i.imgur.com/G4z1kEe.png" height="21" width="21"></a>Fork symbol at the top right corner.
+**1.** Start by making a Fork of the [**type-chef-di**](https://github.com/OpenZer0/type-chef-di) repository. Click on the <a href="https://github.com/OpenZer0/type-chef-di/fork"><img src="https://i.imgur.com/G4z1kEe.png" height="21" width="21"></a>Fork symbol at the top right corner.
 
 **2.** Clone your new fork of the repository in the terminal/CLI on your computer with the following command:
 
 ```bash
-git clone https://github.com/<your-github-username>/LinkFree
+git clone https://github.com/<your-github-username>/type-chef-di
 ```
 
-**3.** Navigate to the newly created LinkFree project directory:
+**3.** Navigate to the newly created type-chef-di project directory:
 
 ```bash
-cd LinkFree
+cd type-chef-di
 ```
 
 **4.** Set upstream command:
 
 ```bash
-git remote add upstream https://github.com/EddieHubCommunity/LinkFree.git
+git remote add upstream https://github.com/OpenZer0/type-chef-di.git
 ```
 
 **5.** Create a new branch:
@@ -96,9 +96,9 @@ git push origin YourBranchName
 
 **11.** Create a [Pull Request](https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/creating-a-pull-request)!
 
-**12.** **Congratulations!** You've made your first contribution to [**LinkFree**](https://github.com/EddieHubCommunity/LinkFree/graphs/contributors)! 🙌🏼
+**12.** **Congratulations!** You've made your first contribution! 🙌🏼
 
-**_:trophy: After this, the maintainers will review the PR and will merge it if it helps move the LinkFree project forward. Otherwise, it will be given constructive feedback and suggestions for the changes needed to add the PR to the codebase._**
+**_:trophy: After this, the maintainers will review the PR and will merge it if it helps move the type-chef-di project forward. Otherwise, it will be given constructive feedback and suggestions for the changes needed to add the PR to the codebase._**
 
 ---
 
