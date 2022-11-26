@@ -225,7 +225,19 @@ There are a few more features:
 ```
 I tried to keep this readme short, if you are interested, check the documentation https://zer0-2.gitbook.io/type-chef-di/
 
+
+## Contribution
+All contributions are welcome ❤️
+
+Check out the [issues](https://github.com/OpenZer0/type-chef-di/issues) or improve the test coverage
+
+Test coverage(main): https://type-chef-di-coverage.netlify.app/
+
+### Documentation
+https://zer0-2.gitbook.io/type-chef-di/
+
 There are still things to improve and document, you can help,
 if you would like to improve the documentation, click on the "edit on GitHub" button and make a pull request.
+
 
 ![Maurer Krisztián](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/yvztdtigbpibxyjhiby7.png)
